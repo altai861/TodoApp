@@ -38,12 +38,14 @@ const login = async (req, res) => {
 
     res.cookie('jwt', refreshToken, {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: 'None',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
+    const roles = foundUser.roles
+    const userId = foundUser._id
 
-    res.json({ accessToken })
+    res.json({ accessToken, roles, userId, username })
 }
 
 const register = async (req, res) => {
@@ -99,8 +101,9 @@ const refresh = async (req, res) => {
                 process.env.ACCESS_TOKEN_SECRET,
                 { expiresIn: '10m' }
             )
-
-            res.json({ roles, accessToken })
+            const userId = foundUser._id
+            const username = foundUser.username
+            res.json({ accessToken, roles, userId, username })
         }
     )
 }
@@ -108,7 +111,7 @@ const refresh = async (req, res) => {
 const logout = (req, res) => {
     const cookies = req.cookies
     if (!cookies?.jwt) return res.sendStatus(204) // No content
-    res.clearCookies('jwt', { httpOnly: true, sameSite: 'None', secure: true })
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     res.json({ message: 'Cookie cleared' })
 }
 

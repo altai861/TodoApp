@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema({
     roles: {
         type: Array,
         default: [2001]
+    },
+    tasks: {
+        type: Array,
+        default: []
+    },
+    taskLists: {
+        type: Array,
+        default: []
     }
 })
 
