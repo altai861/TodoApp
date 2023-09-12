@@ -1,8 +1,6 @@
 const Task = require("../model/Task")
 const User = require("../model/User")
 const TaskList = require("../model/TaskList")
-const mongoose = require("mongoose")
-const Mongoose = new mongoose.Mongoose()
 
 const getAllTasks = async (req, res) => {
     const { userId } = req.body
@@ -46,12 +44,12 @@ const createNewTask = async (req, res) => {
 
 
     if (newTask) {
-        user.tasks.push(newTask)
+        user.tasks.push(newTask._id)
         user.save()
 
         if (ofWhatList) {
             const list = await TaskList.findById(ofWhatList).exec()
-            list.tasks.push(newTask)
+            list.tasks.push(newTask._id)
             list.save()
         }
         return res.status(201).json({ message: "New Task created" })
@@ -85,11 +83,14 @@ const updateTask = async (req, res) => {
     if (dueDate) {
         task.dueDate = dueDate
     }
+
     if (ofWhatList) {
-        task.ofWhatList = ofWhatList
-        const list = await TaskList.findById(ofWhatList).exec()
-        list.tasks.push(task)
-        list.save()
+        const list = await TaskList.findById(ofWhatList).exec();
+        if (list) {
+            task.ofWhatList = ofWhatList
+            list.tasks.push(task._id)
+            list.save();
+        }
     }
     const updatedTask = await task.save()
     if (updatedTask) {
@@ -116,23 +117,25 @@ const deleteTask = async (req, res) => {
         return res.status(401).json({ message: "UserId of task does not match the userId received" })
     }
 
-    const result = await task.deleteOne()
+    const result = await task.deleteOne();
     const user = await User.findById(userId).exec()
-    for (let i = 0; i < user.tasks.length; i++) {
-        if (user.tasks[i]._id === result._id) {
-            user.tasks.splice(i, 1);
-            break;
-        }
+    const taskIndexToRemove = user.tasks.findIndex((id) => id.equals(taskId))
+
+    if (taskIndexToRemove !== -1) {
+        user.tasks.splice(taskIndexToRemove, 1);
+        user.save();
     }
 
+
     if (result.ofWhatList) {
-        const list = await TaskList.findById(ofWhatList).exec()
-        for (let i = 0; i < list.tasks.length; i++) {
-            if (list.tasks[i]._id === result._id) {
-                list.tasks.splice(i, 1)
-                break;
-            }
+        const list = await TaskList.findById(result.ofWhatList).exec()
+        const taskIndexToRemoveInList = list.tasks.findIndex((id) => id.equals(taskId));
+
+        if (taskIndexToRemoveInList !== -1) {
+            list.tasks.splice(taskIndexToRemoveInList, 1);
+            list.save();
         }
+
     }
     const reply = `${result._id} task deleted`
     res.json(reply)

@@ -36,7 +36,7 @@ const createNewTaskList = async (req, res) => {
     })
 
     if (newList) {
-        user.taskLists.push(newList);
+        user.taskLists.push(newList._id);
         user.save()
         return res.status(201).json({ message: "Created new List." })
     } else {
@@ -51,14 +51,9 @@ const updateTaskList = async (req, res) => {
     const user = await User.findById(userId).exec()
     if (!user) return res.status(401).json({ message: "User does not exist" })
 
-    let count = 0
-    for (const list of user.taskLists) {
-        if (list._id === taskListId) {
-            count++;
-        }
-    }
+    const index = user.taskLists.findIndex((id) => id.equals(taskListId));
 
-    if (count !== 1) {
+    if (index === -1) {
         return res.status(401).json({ message: "List does not exist to this user" })
     }
 
@@ -82,14 +77,9 @@ const deleteTaskList = async (req, res) => {
     const user = await User.findById(userId).exec()
     if (!user) return res.status(401).json({ message: "User does not exist" })
 
-    let count = 0
-    for (const list of user.taskLists) {
-        if (list._id === taskListId) {
-            count++;
-        }
-    }
+    const index = user.taskLists.findIndex((id) => id.equals(taskListId));
 
-    if (count !== 1) {
+    if (index === -1) {
         return res.status(401).json({ message: "List does not exist to this user" })
     }
 
@@ -99,23 +89,23 @@ const deleteTaskList = async (req, res) => {
 
     const result = await list.deleteOne();
     if (result) {
-        for (let i = 0; i < user.taskLists.length; i++) {
-            if (user.taskLists[i]._id === result._id) {
-                user.taskLists.splice(i, 1);
+        
+        for (const id of result.tasks) {
+            const task = await Task.findById(id).exec()
+            const indexToRemoveInUser = user.tasks.findIndex((id) => id.equals(task._id))
+            if (indexToRemoveInUser !== -1) {
+                user.tasks.splice(indexToRemoveInUser, 1)
                 user.save()
-                break;
             }
+            task.deleteOne();
         }
-        for (const task of result.tasks) {
-            const t = await Task.findById(task._id)
-            for (let i = 0; i < user.tasks.length; i++) {
-                if (user.tasks[i]._id === t._id) {
-                    user.tasks.splice(i, 1);
-                    break;
-                }
-            }
-            t.deleteOne()
+
+        const indexToRemove = user.taskLists.findIndex((id) => id.equals(result._id));
+        if (indexToRemove !== -1) {
+            user.taskLists.splice(indexToRemove, 1);
+            user.save()
         }
+        
         return res.status(201).json({ message: "deleted successfully" })
     } else {
         return res.status(401).json({ message: "Delete unsuccessful" })
