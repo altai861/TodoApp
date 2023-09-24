@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>Todo App</title>
 </head>
 <body>
-    <div id="auth-container">
-        <div id="login-form">
-            <h2>Login</h2>
-            <form>
-                <input type="text" placeholder="Username" id="login-username">
-                <input type="password" placeholder="Password" id="login-password">
-                <button type="button" onClick="login()">Login</button>
-            </form>
-        </div>
-        <div id="register-form">
-            <h2>Register</h2>
-            <form>
-                <input type="text" placeholder="Username" id="register-username">
-                <input type="password" placeholder="Password" id="register-password">
-                <input type="password" placeholder="Confirm password" id="register-confirm">
-                <button type="button" onClick="register()">Register</button>
-            </form>
-        </div>
+   
+    <div id="login-form">
+        <h2>Login</h2>
+        <form>
+            <input type="text" placeholder="Username" id="login-username">
+            <input type="password" placeholder="Password" id="login-password">
+            <button type="button" onClick="login()">Login</button>
+        </form>
     </div>
+    <div id="register-form">
+        <h2>Register</h2>
+        <form>
+            <input type="text" placeholder="Username" id="register-username">
+            <input type="password" placeholder="Password" id="register-password">
+            <input type="password" placeholder="Confirm password" id="register-confirm">
+            <button type="button" onClick="register()">Register</button>
+        </form>
+    </div>
+
     <div id="todo-container">
         <h2>Todo List</h2>
         <input type="text" placeholder="Add a new task" id="task-input">
