@@ -16,8 +16,19 @@ function addTask() {
             <button class="delete">Delete</button>
         `;
         
+        
         // Add the task to the task list
         taskList.appendChild(li);
+
+        li.addEventListener('click', () => {
+            const value = li.innerText
+            li.innerText = ""
+            const input = document.createElement('input');
+            input.value =  value;
+            li.appendChild(input);
+
+            
+        })
         
         // Clear the input
         taskInput.value = "";

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of todos</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="grey-modal-background" class="hidden"></div>
+
+    <section>
+        <h1>Todo Administration with Vanilla JS</h1>
+        <div data-container="todo-table"></div>
+    </section>
+
+    <script type="application/javascript" src="js/main.js"></script>
+    <script type="application/javascript">
+        let todos = [
+            new TodoModel({
+                id: 1,
+                main: "To Code",
+                date: "EveryDay",
+                completed: true
+            }),
+            new TodoModel({
+                id: 2,
+                main: "To Exercise",
+                date: "EveryDay",
+                completed: true
+            }),
+            new TodoModel({
+                id: 3,
+                main: "To Eat",
+                date: "EveryDay",
+                completed: true
+            }),
+            new TodoModel({
+                id: 4,
+                main: "To Sleep",
+                date: "EveryDay",
+                completed: true
+            }),
+            new TodoModel({
+                id: 5,
+                main: "To Live",
+                date: "EveryDay",
+                completed: true
+            })
+        ]
+        console.log(todos)
+
+        const todoTables = document.querySelectorAll('[data-container="todo-table"]')
+        console.log(todoTables)
+        for (let i = 0; i < todoTables.lenth; i++) {
+            new TodoTableComponent({
+                todos: todos,
+                containerElement: todoTables[i]
+            })
+        }
+    </script>
+
+</body>
+</html>
