@@ -50,15 +50,16 @@
         ]
         console.log(todos)
 
-        const todoTables = document.querySelectorAll('[data-container="todo-table"]')
-        console.log(todoTables)
-        for (let i = 0; i < todoTables.lenth; i++) {
-            new TodoTableComponent({
-                todos: todos,
-                containerElement: todoTables[i]
-            })
-        }
-    </script>
+        const todoTable = document.querySelector('[data-container="todo-table"]')
+        console.log(todoTable)
+        console.log('what is up')
 
+        new TodoTableComponent({
+            todos: todos,
+            containerElement: todoTable
+        })
+
+
+    </script>
 </body>
 </html>
