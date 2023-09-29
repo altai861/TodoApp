@@ -48,7 +48,7 @@ class TodoCollectionModel extends Observable {
     }
 
     getTodo(id) {
-        return this.books.find(it => it.id === id);
+        return this.todos.find(it => it.id === id);
     }
 
     addTodo(todo) {
@@ -97,7 +97,7 @@ class TodoTableComponent {
             );
             createTodoForm.render();
 
-            GreyModalElement.appendChild(createTodoForm)
+            GreyModalElement.appendChild(createTodoForm.formElement)
             GreyModalElement.show();
             createTodoForm.inputFieldForTitle.focus();
         }
@@ -108,13 +108,13 @@ class TodoTableComponent {
             const todoId = Number(rowElement.querySelector('td:first-child').textContent)
             const editTodoForm = new EditTodoFormComponent(
                 {},
-                this.todoCollection,
-                this.todoCollection.getTodo(todoId)
+                this.todosCollection,
+                this.todosCollection.getTodo(todoId)
             );
 
             editTodoForm.render();
             GreyModalElement.show();
-            GreyModalElement.appendChild(editTodoForm);
+            GreyModalElement.appendChild(editTodoForm.formElement);
             editTodoForm.inputFieldForTitle.focus();
         }
 
@@ -124,7 +124,7 @@ class TodoTableComponent {
     }
 
     updateProperties(obj) {
-        this.todoCollection = new TodoCollectionModel(obj.todos);
+        this.todosCollection = new TodoCollectionModel(obj.todos);
         this.todosCollection.subscribe(() => {
             this.render();
         })
@@ -156,7 +156,7 @@ class TodoTableComponent {
 
     renderBody() {
         this.tableBodyElement.innerHTML = `
-            ${this.todos.map(todo => `
+            ${this.todosCollection.todos.map(todo => `
                 <tr>
                     <td>${todo.id}</td>
                     <td>${todo.main}</td>
@@ -314,7 +314,7 @@ class CreateTodoFormComponent extends TodoFormAbstract {
 	submit(){
 		if(this.validate()){
 			let todo = new TodoModel({
-				id: this.TodosCollection.todos.length + 1,
+				id: this.todosCollection.todos.length + 1,
 				main: this.inputFieldForTitle.value,
 				date: this.inputFieldForDate,
 				completed: this.inputFieldForCompleted.value
@@ -359,7 +359,7 @@ class EditTodoFormComponent extends TodoFormAbstract{
 				date: this.inputFieldForDate.value,
 				completed: this.inputFieldForCompleted
 			};
-			this.todosCollection.updateTodo(todosProperties);
+			this.todosCollection.updateTodo(todoProperties);
 			this.destroyFormFn();
 		}
 	}
