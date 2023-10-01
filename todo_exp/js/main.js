@@ -32,7 +32,11 @@ class TodoModel {
         this.id = obj.id;
         if(obj.main) this.main = obj.main;
         if (obj.date) this.date = obj.date;
-        if (obj.completed) this.completed = obj.completed;
+        if (obj.completed) {
+            this.completed = obj.completed
+        } else {
+            this.completed = false
+        }
     }
 
     static getFields() {
@@ -93,7 +97,7 @@ class TodoTableComponent {
         this.showCreateTodoModalFn = () => {
             const createTodoForm = new CreateTodoFormComponent(
                 {},
-                this.todoCollection
+                this.todosCollection
             );
             createTodoForm.render();
 
@@ -161,7 +165,7 @@ class TodoTableComponent {
                     <td>${todo.id}</td>
                     <td>${todo.main}</td>
                     <td>${todo.date}</td>
-                    <td>${todo.completed}</td>
+                    <td><input type="checkbox" value="Completed" ${todo.completed ? "checked": ""}></td>
                 </tr>
             `).join('')}
         `;
@@ -287,8 +291,6 @@ class TodoFormAbstract extends BaseFormAbstract  {
             <input type="text" name="main" value="" tabIndex="10" />
             <label>Due:</label>
             <input type="text" name="date" value="" tabIndex="20" />
-            <label>Completed:</label>
-            <input type="checkbox" name="completed" tabIndex="30" />
         `;
         
         this.cancelButtonElement.tabIndex = 100;
@@ -300,7 +302,6 @@ class TodoFormAbstract extends BaseFormAbstract  {
 
         this.inputFieldForTitle = this.formElement.querySelector('input[name="main"]');
         this.inputFieldForDate = this.formElement.querySelector('input[name="date"]')
-        this.inputFieldForCompleted = this.formElement.querySelector('input[name="completed"]')
 
     }
 }
@@ -316,8 +317,8 @@ class CreateTodoFormComponent extends TodoFormAbstract {
 			let todo = new TodoModel({
 				id: this.todosCollection.todos.length + 1,
 				main: this.inputFieldForTitle.value,
-				date: this.inputFieldForDate,
-				completed: this.inputFieldForCompleted.value
+				date: this.inputFieldForDate.value,
+                completed: false
 			});
 			this.todosCollection.addTodo(todo);
 			this.destroyFormFn();
@@ -346,7 +347,7 @@ class EditTodoFormComponent extends TodoFormAbstract{
 	bindTodoToForm() {
 		this.inputFieldForTitle.value = this.todo.main;
 		this.inputFieldForDate.value = this.todo.date;
-		this.inputFieldForCompleted.value = this.todo.completed;
+		this.inputFieldForCompleted.checked = this.todo.completed;
 		this.inputFieldForId.value = this.todo.id;
 	}
 
@@ -357,15 +358,39 @@ class EditTodoFormComponent extends TodoFormAbstract{
 				main: this.inputFieldForTitle.value,
 				// I just create a new author here for the sake of simplicity
 				date: this.inputFieldForDate.value,
-				completed: this.inputFieldForCompleted
+				completed: this.inputFieldForCompleted.checked
 			};
+            console.log(todoProperties)
 			this.todosCollection.updateTodo(todoProperties);
 			this.destroyFormFn();
-		}
+		} else {
+            console.log("Not validated")
+        }
 	}
 
 	render(){
-		super.render();
+		
+        this.formElement.innerHTML = `
+            <label>Main:</label>
+            <input type="text" name="main" value="" tabIndex="10" />
+            <label>Due:</label>
+            <input type="text" name="date" value="" tabIndex="20" />
+            <label>Completed:</label>
+            <input type="checkbox" name="completed" tabIndex="30" />
+        `;
+        
+        this.cancelButtonElement.tabIndex = 100;
+        this.submitButtonElement.tabIndex = 110;
+
+        this.formElement.appendChild(this.submitButtonElement);
+        this.formElement.appendChild(this.cancelButtonElement);
+
+
+        this.inputFieldForTitle = this.formElement.querySelector('input[name="main"]');
+        this.inputFieldForDate = this.formElement.querySelector('input[name="date"]')
+        this.inputFieldForCompleted = this.formElement.querySelector('input[name="completed"]')
+
+        
 		this.bindTodoToForm();
 	}
 }
