@@ -1,0 +1,70 @@
+* {
+    font-family: "Segoe", "Segoe UI", "Arial", "sans-serif";
+    box-sizing: border-box;
+}
+
+.navbar {
+    padding: 10px 0;
+    background-color: rgb(61, 179, 225);
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    
+}
+
+.new-todo {
+    width: 50%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.todo-list {
+    margin-top: 5px;
+    width: 50%;
+}
+
+.todo-item {
+    margin-top: 5px;
+    width: 100%;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"]::placeholder {
+    color:rgb(61, 179, 225);
+}
+
+input[type="text"]:focus::placeholder {
+    color: black;
+}
+
+.context-menu {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    display: none;
+  }
