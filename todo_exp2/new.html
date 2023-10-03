@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Todo App</h1>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    class TodoApp {
+      constructor() {
+        this.taskInput = document.getElementById('taskInput');
+        this.taskList = document.getElementById('taskList');
+        this.tasks = [];
+        
+        this.taskInput.addEventListener('keyup', this.handleTaskInput.bind(this));
+        this.loadTasks();
+      }
+
+      handleTaskInput(event) {
+        if (event.key === 'Enter' && this.taskInput.value.trim() !== '') {
+          const taskText = this.taskInput.value.trim();
+          const task = new Task(taskText);
+          this.tasks.push(task);
+          this.saveTasks();
+          this.displayTasks();
+          this.taskInput.value = '';
+        }
+      }
+
+      displayTasks() {
+        this.taskList.innerHTML = '';
+        this.tasks.forEach((task, index) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = task.text;
+          listItem.classList.toggle('completed', task.completed);
+          listItem.addEventListener('click', () => this.toggleTaskCompletion(index));
+          const deleteButton = document.createElement('span');
+          deleteButton.textContent = 'Delete';
+          deleteButton.classList.add('delete-button');
+          deleteButton.addEventListener('click', () => this.deleteTask(index));
+          listItem.appendChild(deleteButton);
+          this.taskList.appendChild(listItem);
+        });
+      }
+
+      toggleTaskCompletion(index) {
+        this.tasks[index].toggleCompletion();
+        this.saveTasks();
+        this.displayTasks();
+      }
+
+      deleteTask(index) {
+        this.tasks.splice(index, 1);
+        this.saveTasks();
+        this.displayTasks();
+      }
+
+      saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+      }
+
+      loadTasks() {
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+          this.tasks = JSON.parse(storedTasks).map(taskData => new Task(taskData.text, taskData.completed));
+        }
+        this.displayTasks();
+      }
+    }
+
+    class Task {
+      constructor(text, completed = false) {
+        this.text = text;
+        this.completed = completed;
+      }
+
+      toggleCompletion() {
+        this.completed = !this.completed;
+      }
+    }
+
+    const app = new TodoApp();
+  </script>
+
+  <style>
+    /* Add your CSS styles here */
+    .completed {
+      text-decoration: line-through;
+    }
+
+    .delete-button {
+      color: red;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  </style>
+</body>
+</html>

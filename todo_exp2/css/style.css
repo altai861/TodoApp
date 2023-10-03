@@ -42,6 +42,11 @@ input[type="text"] {
     width: 50%;
 }
 
+.completed-list {
+    margin-top: 5px;
+    width: 50%;
+}
+
 .todo-item {
     margin-top: 5px;
     width: 100%;
@@ -105,3 +110,9 @@ input[type="text"]:focus::placeholder {
   .delete-task:hover {
     color:rgba(0, 0, 1, 0.2)
   }
+
+
+.completed {
+    text-decoration: line-through;
+    color:rgba(0, 0, 0, 0.5)
+}
