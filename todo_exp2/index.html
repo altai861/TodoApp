@@ -12,25 +12,31 @@
 </head>
 <body>
     <nav class="navbar">
-        <h1 class="title">Todo App</h1>
+        <h1 class="title">To Do</h1>
     </nav>
     <div class="main">
-        <div class="new-todo">
-            <input type="text" id="todo-input" placeholder="Add a task">
+        <div id="lists">
+            <ul>
+                <li>All</li>
+                <li>My Day</li>
+                <li>Important</li>
+                <li>Planned</li>
+            </ul>
         </div>
-        <div class="todo-list">
+        <div class="main-tasks-section">
+            <div class="new-todo">
+                <input type="text" id="todo-input" placeholder="Add a task">
+            </div>
+            <div class="todo-list">
+    
+            </div>
+            <div class="completed-list">
+            </div>
+        </div>
 
-        </div>
-        <div class="completed-list">
-
-        </div>
     </div>
-    <div id="deleteConfirmationModal" class="modal">
-        <div class="modal-content">
-            <p>Are you sure you want to delete this task?</p>
-            <button id="confirmDelete">Yes</button>
-            <button id="cancelDelete">No</button>
-        </div>
+    <div id="contextMenu">
+        
     </div>
     <script type="module" src="js/thirdMain.js"></script>
 </body>

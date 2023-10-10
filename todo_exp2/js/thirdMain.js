@@ -3,6 +3,7 @@ class TodoApp {
         this.taskInput = document.querySelector("#todo-input");
         this.taskList = document.querySelector(".todo-list");
         this.completedList = document.querySelector(".completed-list")
+        this.contextMenu = document.getElementById("contextMenu");
         this.tasks = []
 
         this.taskInput.addEventListener("keyup", this.handleTaskInput.bind(this));
@@ -20,6 +21,26 @@ class TodoApp {
             this.displayTasks();
             this.taskInput.value = '';
           }
+    }
+
+    showContextMenu(event, index) {
+      event.preventDefault();
+      this.contextMenu.innerHTML = "";
+      this.contextMenu.style.left = event.clientX + "px";
+      this.contextMenu.style.top = event.clientY + "px";
+
+
+      const deleteIcon = document.createElement("i");
+      deleteIcon.classList = "fas fa-trash-alt delete-task"
+
+      deleteIcon.addEventListener('click', () => {
+        this.deleteTask(index);
+        this.contextMenu.style.display = "none";
+      });
+
+      this.contextMenu.appendChild(deleteIcon)
+
+      this.contextMenu.style.display = "block";
     }
 
     displayTasks() {
@@ -43,11 +64,7 @@ class TodoApp {
             listItem.appendChild(mainText);
             mainText.classList.toggle('completed', task.completed);
 
-            const deleteButton = document.createElement('i');
-            deleteButton.classList = "fas fa-trash-alt delete-task"
-
-            deleteButton.addEventListener('click', () => this.deleteTask(index));
-            listItem.appendChild(deleteButton);
+            listItem.addEventListener("contextmenu", () => this.showContextMenu(event, index))
             
             if (task.completed) {
                 this.completedList.appendChild(listItem)
@@ -81,6 +98,14 @@ class TodoApp {
         }
         this.displayTasks();
     }
+}
+
+
+class List {
+  constructor(name) {
+    this.tasks = [];
+    this.name = name
+  }
 }
 
 class Task {

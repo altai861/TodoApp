@@ -17,15 +17,21 @@
 
 .main {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding-top: 100px;
-    
 }
 
-.new-todo {
-    width: 50%;
+#lists {
+    width: 30%;
+}
+
+.main-tasks-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
 }
 
 input[type="text"] {
@@ -39,12 +45,12 @@ input[type="text"] {
 
 .todo-list {
     margin-top: 5px;
-    width: 50%;
+    
 }
 
 .completed-list {
     margin-top: 5px;
-    width: 50%;
+    
 }
 
 .todo-item {
@@ -56,9 +62,14 @@ input[type="text"] {
     border-radius: 5px;
     font-size: 16px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    overflow: auto;
 }
+
+.task-checkbox {
+    margin-right: 10px;
+}
+
 
 .todo-item.removing {
     opacity: 0; /* Set opacity to 0 for the "removing" class */
@@ -115,4 +126,15 @@ input[type="text"]:focus::placeholder {
 .completed {
     text-decoration: line-through;
     color:rgba(0, 0, 0, 0.5)
+}
+
+#contextMenu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+    
 }
