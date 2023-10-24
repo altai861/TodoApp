@@ -5,11 +5,13 @@ const cookieParser = require("cookie-parser");
 const { logger } = require("./middleware/logger");
 const connectDB = require('./config/dbConn');
 const { default: mongoose } = require('mongoose');
+const cors = require('cors');
 const app = express();
 const port = 3500;
 
 connectDB();
 
+app.use(cors());
 // middlewares
 app.use(logger);
 app.use(cookieParser());
