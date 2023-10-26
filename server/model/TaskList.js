@@ -5,10 +5,6 @@ const taskListSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tasks: {
-        type: Array,
-        default: []
-    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
