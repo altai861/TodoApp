@@ -9,11 +9,29 @@
   </head>
   <body>
     <div id="app">
-      <h1>Main app</h1>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam officia consequatur asperiores numquam obcaecati, provident quae rem nobis aperiam cum aut accusamus quis odio error fuga magnam. Perspiciatis, ab distinctio.</p>
+      <div id="list-side">
+        <h1>List side</h1>
+        <ul>
+          <li id="my-day-list">My Day</li>
+          <li id="important-list">Important</li>
+          <li id="planned-list">Planned</li>
+          <li id="all-tasks-list">All Tasks</li>
+        </ul>
+        <hr>
+        <ul id="custom-lists">
+
+        </ul>
+      </div>
+      <div id="tasks-side">
+        <h1 id="lists-name">My day</h1>
+        <ul id="tasks">
+
+        </ul>
+      </div>
+      <div id="single-task-side"><h1>Single tasks side</h1></div>
     </div>
     <button id="logout-button">logout</button>
+    
     <script type="module" src="/main.js"></script>
-    <script type="module" src="/js/auth.js"></script>
   </body>
 </html>

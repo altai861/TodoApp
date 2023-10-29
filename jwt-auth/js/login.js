@@ -20,11 +20,7 @@ class Login {
             password: password
         })
         .then(function(response) {
-            const authObject = {
-                userId: response.data.userId,
-                accessToken: response.data.accessToken
-            }
-            localStorage.setItem("auth", JSON.stringify(authObject))
+            localStorage.setItem("userId", response.data.userId)
             window.location.replace("/");
             console.log(response.data);
         })
