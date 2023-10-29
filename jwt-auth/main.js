@@ -60,9 +60,9 @@ function loadTasks(userId) {
     const tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
     document.getElementById("lists-name").innerText = "All Tasks";
-    response.data.forEach((list, i) => {
+    response.data.forEach((task, i) => {
       const li = document.createElement("li");
-      li.innerText = list?.mainText;
+      li.innerText = task?.mainText;
       tasks.appendChild(li);
     })
   })
@@ -87,9 +87,9 @@ function loadMyDay(userId) {
     const tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
     document.getElementById("lists-name").innerText = "My Day";
-    response.data.forEach((list, i) => {
+    response.data.forEach((task, i) => {
       const li = document.createElement("li");
-      li.innerText = list?.mainText;
+      li.innerText = task?.mainText;
       tasks.appendChild(li);
     })
   })
@@ -113,9 +113,9 @@ function loadImportant(userId) {
     const tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
     document.getElementById("lists-name").innerText = "Important";
-    response.data.forEach((list, i) => {
+    response.data.forEach((task, i) => {
       const li = document.createElement("li");
-      li.innerText = list?.mainText;
+      li.innerText = task?.mainText;
       tasks.appendChild(li);
     })
   })
@@ -138,9 +138,9 @@ function loadPlanned(userId) {
     const tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
     document.getElementById("lists-name").innerText = "Planned";
-    response.data.forEach((list, i) => {
+    response.data.forEach((task, i) => {
       const li = document.createElement("li");
-      li.innerText = list?.mainText;
+      li.innerText = task?.mainText;
       tasks.appendChild(li);
     })
   })
@@ -196,9 +196,9 @@ function loadCustomListTasks(listId, userId, listName) {
     const tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
     document.getElementById("lists-name").innerText = listName;
-    response.data.forEach((list, i) => {
+    response.data.forEach((task, i) => {
       const li = document.createElement("li");
-      li.innerText = list?.mainText;
+      li.innerText = task?.mainText;
       tasks.appendChild(li);
     })
   })
