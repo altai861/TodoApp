@@ -1,5 +1,150 @@
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   display: flex;
   justify-content: space-between;
-  
+  align-items: flex-start;
+  margin: 20px;
 }
+
+#list-side, #tasks-side, #single-task-side {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#list-side {
+  width: 200px;
+}
+
+#tasks-side {
+  flex: 1;
+  margin: 0 20px;
+}
+
+#single-task-side {
+  width: 200px;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.main-lists {
+  padding: 5px;
+}
+.main-lists:hover {
+  background-color: aliceblue;
+}
+.custom-lists {
+  padding: 5px;
+}
+.custom-lists:hover {
+  background-color: aliceblue;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+hr {
+  margin: 10px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+#logout-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+input[type="text"] {
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Style the "Add List" button */
+.logout-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Add hover effect for the button */
+.logout-button:hover {
+  background-color: #45a049;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  list-style: none;
+  padding: 0;
+}
+
+.context-menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #f2f2f2;
+}
+
+.task-item {
+  border: 1px solid rgb(204, 193, 193);
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px;
+}
+
+.task-item:hover {
+  background-color: aliceblue;
+}
+
+.task-item div {
+  display: flex;
+  align-items: center;
+}
+
+.task-item input[type="checkbox"] {
+  margin-right: 8px; /* Add spacing between the checkbox and text */
+}
+
+.due-date {
+  display: block;
+  font-size: 14px; /* Adjust the font size */
+  color: #ff9900; /* Custom color (e.g., orange) */
+  margin-left: 10px; /* Add some spacing from the text */
+  font-style: italic; /* Italicize the due date */
+}
+

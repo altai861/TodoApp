@@ -12,15 +12,19 @@
       <div id="list-side">
         <h1>List side</h1>
         <ul>
-          <li id="my-day-list">My Day</li>
-          <li id="important-list">Important</li>
-          <li id="planned-list">Planned</li>
-          <li id="all-tasks-list">All Tasks</li>
+          <li class="main-lists" id="my-day-list">My Day</li>
+          <li class="main-lists" id="important-list">Important</li>
+          <li class="main-lists" id="planned-list">Planned</li>
+          <li class="main-lists" id="all-tasks-list">All Tasks</li>
         </ul>
         <hr>
         <ul id="custom-lists">
 
         </ul>
+        <form>
+          <input id="new-list-input" type="text" required>
+          <button type="submit" id="add-list">Add List</button>
+        </form>
       </div>
       <div id="tasks-side">
         <h1 id="lists-name">My day</h1>
@@ -31,7 +35,16 @@
       <div id="single-task-side"><h1>Single tasks side</h1></div>
     </div>
     <button id="logout-button">logout</button>
-    
+    <div class="context-menu" id="context-menu-list">
+      <ul>
+        <li id="delete-list">Delete List</li>
+      </ul>
+    </div>
+    <div class="context-menu" id="context-menu-task">
+      <ul>
+        <li id="delete-task">Delete Task</li>
+      </ul>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
